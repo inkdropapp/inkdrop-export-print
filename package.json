@@ -1,0 +1,20 @@
+{
+  "name": "export-print",
+  "description": "Print and export notes as PDF",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inkdropapp/inkdrop-export-print.git"
+  },
+  "main": "index",
+  "styleSheets": [],
+  "dependencies": {
+    "inkdrop-export-utils": "^1.0.2"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "globals": [
+      "inkdrop",
+      "debug"
+    ]
+  }
+}
