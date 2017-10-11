@@ -29,7 +29,8 @@ module.exports = {
 
         try {
           const opts = {
-            pageSize: 'A4'
+            pageSize: 'A4',
+            printBackground: true
           }
           await new Promise((resolve, reject) => {
             webView.printToPDF(opts, (error, data) => {
