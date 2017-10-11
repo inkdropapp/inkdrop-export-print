@@ -84,7 +84,7 @@ module.exports = {
   },
 
   removeWebView (webView) {
-    setTimeout(() => window.document.body.removeChild(webView), 1000)
+    setTimeout(() => window.document.body.removeChild(webView), 60 * 1000)
   },
 
   saveHTMLToTmp (html) {
