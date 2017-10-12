@@ -9,7 +9,7 @@
             { "label": "As PDF..", "command": "export-print:export-as-pdf" },
             { "label": "Print..", "command": "export-print:print" }
           ]
-        },
+        }
       ]
     }
   ],
