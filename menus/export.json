@@ -6,16 +6,17 @@
         {
           "label": "Export",
           "submenu": [
-            { "label": "As PDF..", "command": "export-print:export-as-pdf" }
+            { "label": "As PDF..", "command": "export-print:export-as-pdf" },
+            { "label": "Print..", "command": "export-print:print" }
           ]
-        },
-        { "label": "Print..", "command": "export-print:print" }
+        }
       ]
     }
   ],
   "context-menu": {
     ".note-list-item-view": [
-      { "label": "Export As PDF..", "command": "export-print:export-as-pdf" }
+      { "label": "Export As PDF..", "command": "export-print:export-as-pdf" },
+      { "label": "Print..", "command": "export-print:print" }
     ]
   }
 }

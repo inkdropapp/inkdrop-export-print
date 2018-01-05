@@ -22,7 +22,8 @@ module.exports = {
 
         try {
           const opts = {
-            pageSize: 'A4'
+            pageSize: 'A4',
+            printBackground: true
           }
           await new Promise((resolve, reject) => {
             webView.printToPDF(opts, (error, data) => {
@@ -76,16 +77,12 @@ module.exports = {
   },
 
   removeWebView (webView) {
-    setTimeout(() => window.document.body.removeChild(webView), 1000)
+    setTimeout(() => window.document.body.removeChild(webView), 30 * 60 * 1000)
   },
 
   saveHTMLToTmp (html) {
     const fn = path.join(require('os').tmpdir(), 'inkdrop-export.html')
     fs.writeFileSync(fn, html, 'utf-8')
     return fn
-  },
-
-  deactivate () {
-    this.subscription.dispose()
   }
 }
