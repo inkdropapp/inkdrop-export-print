@@ -1,5 +1,11 @@
 {
-  "body": {
+  ".platform-darwin": {
     "cmd-shift-p": "export-print:print"
+  },
+  ".platform-linux": {
+    "ctrl-shift-p": "export-print:print"
+  },
+  ".platform-win32": {
+    "ctrl-shift-p": "export-print:print"
   }
 }
