@@ -55,7 +55,7 @@ module.exports = {
   },
 
   async createWebView (note) {
-    const templateFilePath = path.join(__dirname, 'node_modules', 'inkdrop-export-utils', 'assets', 'print-template.html')
+    const templateFilePath = require.resolve(path.join('inkdrop-export-utils', 'assets', 'print-template.html'))
     const templateHtml = fs.readFileSync(templateFilePath, 'utf-8')
 
     let markdown = `# ${note.title}\n${note.body}`
