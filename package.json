@@ -9,16 +9,9 @@
   "main": "index",
   "styleSheets": [],
   "dependencies": {
-    "inkdrop-export-utils": "^1.1.0"
-  },
-  "standard": {
-    "parser": "babel-eslint",
-    "globals": [
-      "inkdrop",
-      "debug"
-    ]
+    "inkdrop-export-utils": "^2.0.1"
   },
   "engines": {
-    "inkdrop": "^3.25.2"
+    "inkdrop": "^4.x"
   }
 }
