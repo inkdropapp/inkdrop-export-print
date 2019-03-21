@@ -80,10 +80,9 @@ async function createWebView(note) {
   const fn = saveHTMLToTmp(outputHtml)
   const webView = document.createElement('webview')
   window.document.body.appendChild(webView)
-  global.el = webView
   webView.src = fn
   await new Promise(resolve => {
-    webView.addEventListener('dom-ready', resolve)
+    webView.addEventListener('did-finish-load', resolve)
   })
   return webView
 }
