@@ -66,7 +66,7 @@ async function print() {
 
 async function createWebView(note) {
   const templateFilePath = require.resolve(
-    path.join('inkdrop-export-utils', 'assets', 'print-template.html')
+    path.join('inkdrop-export-utils', 'assets', 'template.html')
   )
   const templateHtml = fs.readFileSync(templateFilePath, 'utf-8')
 
