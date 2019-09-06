@@ -12,7 +12,7 @@ module.exports = {
 async function exportAsPDF() {
   const { editingNote } = inkdrop.store.getState()
   if (editingNote) {
-    const pathToSave = dialog.showSaveDialog({
+    const { filePath: pathToSave, canceled } = await dialog.showSaveDialog({
       title: 'Save PDF file',
       defaultPath: `${editingNote.title}.pdf`,
       filters: [
@@ -29,20 +29,14 @@ async function exportAsPDF() {
           pageSize: 'A4',
           printBackground: true
         }
-        await new Promise((resolve, reject) => {
-          webView.printToPDF(opts, (error, data) => {
-            if (error) {
-              reject(error)
-            }
-            fs.writeFileSync(pathToSave, data)
-          })
-        })
+        const data = await webView.printToPDF(opts)
+        fs.writeFileSync(pathToSave, data)
       } catch (e) {
         inkdrop.notifications.addError('Failed to save HTML', e.stack)
       }
       removeWebView(webView)
     }
-  } else {
+  } else if (!canceled) {
     inkdrop.notifications.addError('No note opened', {
       detail: 'Please open a note to export as HTML',
       dismissable: true
