@@ -48,7 +48,8 @@ async function print() {
   const { editingNote } = inkdrop.store.getState()
   if (editingNote) {
     const webView = await exportUtils.createWebView(editingNote)
-    webView.print()
+    // workaround to avoid crashing on Electron@7
+    webView.executeJavaScript('window.print()')
     exportUtils.removeWebView(webView)
   } else {
     inkdrop.notifications.addError('No note opened', {
