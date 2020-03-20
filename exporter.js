@@ -32,7 +32,10 @@ async function exportAsPDF() {
         const data = await webView.printToPDF(opts)
         fs.writeFileSync(pathToSave, data)
       } catch (e) {
-        inkdrop.notifications.addError('Failed to save HTML', e.stack)
+        inkdrop.notifications.addError('Failed to save HTML', {
+          detail: e.stack,
+          dismissable: true
+        })
       }
       exportUtils.removeWebView(webView)
     }
