@@ -21,7 +21,7 @@ async function exportAsPDF() {
       ]
     })
 
-    if (typeof pathToSave === 'string') {
+    if (typeof pathToSave === 'string' && pathToSave.length > 0) {
       const webView = await exportUtils.createWebView(editingNote)
 
       try {
