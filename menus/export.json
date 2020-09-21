@@ -14,8 +14,10 @@
     }
   ],
   "context-menu": {
-    ".note-list-item-view": [
-      { "label": "Export As PDF..", "command": "export-print:export-as-pdf" },
+    ".note-list-bar .note-list-item-view": [
+      { "label": "Export As PDF..", "command": "export-print:export-as-pdf" }
+    ],
+    ".note-list-bar:not(.multiple-selection) .note-list-item-view": [
       { "label": "Print..", "command": "export-print:print" }
     ]
   }
