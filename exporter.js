@@ -15,10 +15,6 @@ async function exportAsPDFCommand() {
   const { noteListBar, notes } = inkdrop.store.getState()
   const { actionTargetNoteIds } = noteListBar
   if(actionTargetNoteIds && actionTargetNoteIds.length > 1) {
-    inkdrop.notifications.addInfo('Exporting notes started', {
-      detail: 'It may take a while..',
-      dismissable: true
-    })
     await exportMultipleNotesAsPDF(actionTargetNoteIds)
     inkdrop.notifications.addInfo('Exporting notes completed', {
       detail: '',
@@ -67,6 +63,22 @@ async function exportMultipleNotesAsPDF(noteIds) {
 }
 
 async function exportAsPDF(note, pathToSave) {
+  if (typeof pathToSave === 'undefined') {
+    const { filePath, canceled } = await dialog.showSaveDialog({
+      title: 'Save PDF file',
+      defaultPath: `${note.title}.pdf`,
+      filters: [
+        { name: 'PDF Files', extensions: ['pdf'] },
+        { name: 'All Files', extensions: ['*'] }
+      ]
+    })
+    if (typeof filePath === 'string' && filePath.length > 0) {
+      pathToSave = filePath
+    } else {
+      return
+    }
+  }
+
   if (typeof pathToSave === 'string' && pathToSave.length > 0) {
     const webView = await exportUtils.createWebView(note)
 
