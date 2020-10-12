@@ -2,6 +2,7 @@ const remote = require('electron').remote
 const path = require('path')
 const fs = require('fs')
 const exportUtils = require('inkdrop-export-utils')
+const { Note } = require('inkdrop').models
 const { dialog } = remote
 
 module.exports = {
@@ -21,7 +22,7 @@ async function exportAsPDFCommand() {
       dismissable: true
     })
   } else if (actionTargetNoteIds.length === 1) {
-    const note = notes.hashedItems[actionTargetNoteIds[0]]
+    const note = await Note.loadWithId(actionTargetNoteIds[0])
     exportAsPDF(note)
   } else {
     inkdrop.notifications.addError('No note opened', {
@@ -53,7 +54,7 @@ async function exportMultipleNotesAsPDF(noteIds) {
     const destDir = res[0]
 
     for (let noteId of noteIds) {
-      const note = notes.hashedItems[noteId]
+      const note = await Note.loadWithId(noteId)
       if (note) {
         const pathToSave = path.join(destDir, `${note.title}.pdf`)
         await exportAsPDF(note, pathToSave)
