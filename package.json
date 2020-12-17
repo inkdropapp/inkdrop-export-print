@@ -9,7 +9,7 @@
   "main": "index",
   "styleSheets": [],
   "dependencies": {
-    "inkdrop-export-utils": "^3.2.5"
+    "inkdrop-export-utils": "^3.2.6"
   },
   "engines": {
     "inkdrop": "^5.x"
