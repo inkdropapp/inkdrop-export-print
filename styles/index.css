@@ -1,0 +1,10 @@
+@media print {
+  .mde-preview table {
+    overflow: hidden;
+    word-break: break-word;
+  }
+  .mde-preview pre > code {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
+}

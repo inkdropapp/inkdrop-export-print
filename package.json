@@ -7,7 +7,9 @@
     "url": "https://github.com/inkdropapp/inkdrop-export-print.git"
   },
   "main": "index",
-  "styleSheets": [],
+  "styleSheets": [
+    "index.css"
+  ],
   "dependencies": {
     "inkdrop-export-utils": "^3.2.6"
   },
