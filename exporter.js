@@ -96,13 +96,13 @@ async function exportAsPDF(note, pathToSave) {
         dismissable: true
       })
     }
-    exportUtils.removeWebView(webView)
+    exportUtils.removeWebView(webView, 1)
   }
 }
 
 async function print(note) {
   const webView = await exportUtils.createWebView(note)
   // workaround to avoid crashing on Electron@7
-  webView.executeJavaScript('window.print()')
-  exportUtils.removeWebView(webView)
+  await webView.executeJavaScript('window.print()')
+  exportUtils.removeWebView(webView, 1)
 }
