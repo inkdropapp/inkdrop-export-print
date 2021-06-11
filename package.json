@@ -11,7 +11,7 @@
     "index.css"
   ],
   "dependencies": {
-    "inkdrop-export-utils": "^3.2.6"
+    "inkdrop-export-utils": "^3.2.7"
   },
   "engines": {
     "inkdrop": "^5.x"
