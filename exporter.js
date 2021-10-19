@@ -1,9 +1,8 @@
-const remote = require('electron').remote
+const { dialog } = require('@electron/remote')
 const path = require('path')
 const fs = require('fs')
 const exportUtils = require('inkdrop-export-utils')
 const { Note } = require('inkdrop').models
-const { dialog } = remote
 
 module.exports = {
   exportAsPDFCommand,
@@ -15,7 +14,7 @@ module.exports = {
 async function exportAsPDFCommand() {
   const { noteListBar, notes } = inkdrop.store.getState()
   const { actionTargetNoteIds } = noteListBar
-  if(actionTargetNoteIds && actionTargetNoteIds.length > 1) {
+  if (actionTargetNoteIds && actionTargetNoteIds.length > 1) {
     await exportMultipleNotesAsPDF(actionTargetNoteIds)
     inkdrop.notifications.addInfo('Exporting notes completed', {
       detail: '',
