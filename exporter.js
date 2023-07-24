@@ -1,7 +1,7 @@
 const { dialog } = require('@electron/remote')
 const path = require('path')
 const fs = require('fs')
-const exportUtils = require('inkdrop-export-utils')
+const { exportUtils } = require('inkdrop')
 const { Note } = require('inkdrop').models
 
 module.exports = {

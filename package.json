@@ -10,9 +10,7 @@
   "styleSheets": [
     "index.css"
   ],
-  "dependencies": {
-    "inkdrop-export-utils": "^3.3.0"
-  },
+  "dependencies": {},
   "engines": {
     "inkdrop": "^5.x"
   }
