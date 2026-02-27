@@ -44,13 +44,10 @@ async function printCommand() {
 
 async function exportMultipleNotesAsPDF(noteIds) {
   const { notes } = inkdrop.store.getState()
-  const { filePaths: res } = await inkdrop.dialog.showOpenDialog(
-    inkdrop.window,
-    {
-      title: 'Select Destination Directory',
-      properties: ['openDirectory']
-    }
-  )
+  const { filePaths: res } = await inkdrop.dialog.showOpenDialog({
+    title: 'Select Destination Directory',
+    properties: ['openDirectory']
+  })
   if (res instanceof Array && res.length > 0) {
     const destDir = res[0]
 
@@ -66,7 +63,7 @@ async function exportMultipleNotesAsPDF(noteIds) {
 
 async function exportAsPDF(note, pathToSave) {
   if (typeof pathToSave === 'undefined') {
-    const { filePath, canceled } = await dialog.showSaveDialog({
+    const { filePath, canceled } = await inkdrop.dialog.showSaveDialog({
       title: 'Save PDF file',
       defaultPath: `${note.title}.pdf`,
       filters: [
