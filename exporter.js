@@ -1,4 +1,3 @@
-const { dialog } = require('@electron/remote')
 const path = require('path')
 const fs = require('fs')
 const { exportUtils } = require('inkdrop')
@@ -45,10 +44,13 @@ async function printCommand() {
 
 async function exportMultipleNotesAsPDF(noteIds) {
   const { notes } = inkdrop.store.getState()
-  const { filePaths: res } = await dialog.showOpenDialog(inkdrop.window, {
-    title: 'Select Destination Directory',
-    properties: ['openDirectory']
-  })
+  const { filePaths: res } = await inkdrop.dialog.showOpenDialog(
+    inkdrop.window,
+    {
+      title: 'Select Destination Directory',
+      properties: ['openDirectory']
+    }
+  )
   if (res instanceof Array && res.length > 0) {
     const destDir = res[0]
 
