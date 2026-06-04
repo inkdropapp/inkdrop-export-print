@@ -14,10 +14,10 @@
     }
   ],
   "context-menu": {
-    ".note-list-bar .note-list-item-view": [
+    ".note-list-bar .note-list-item-view, .editor-header-more .menu": [
       { "label": "Export As PDF..", "command": "export-print:export-as-pdf" }
     ],
-    ".note-list-bar:not(.multiple-selection) .note-list-item-view": [
+    ".note-list-bar:not(.multiple-selection) .note-list-item-view, .editor-header-more .menu": [
       { "label": "Print..", "command": "export-print:print" }
     ]
   }

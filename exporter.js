@@ -10,17 +10,18 @@ module.exports = {
   print
 }
 
-async function exportAsPDFCommand() {
+async function exportAsPDFCommand(e) {
   const { noteListBar, notes } = inkdrop.store.getState()
   const { actionTargetNoteIds } = noteListBar
-  if (actionTargetNoteIds && actionTargetNoteIds.length > 1) {
-    await exportMultipleNotesAsPDF(actionTargetNoteIds)
+  const noteIds = e.detail?.noteId ? [e.detail.noteId] : actionTargetNoteIds
+  if (noteIds && noteIds.length > 1) {
+    await exportMultipleNotesAsPDF(noteIds)
     inkdrop.notifications.addInfo('Exporting notes completed', {
       detail: '',
       dismissable: true
     })
-  } else if (actionTargetNoteIds.length === 1) {
-    const note = await Note.loadWithId(actionTargetNoteIds[0])
+  } else if (noteIds.length === 1) {
+    const note = await Note.loadWithId(noteIds[0])
     exportAsPDF(note)
   } else {
     inkdrop.notifications.addError('No note opened', {
