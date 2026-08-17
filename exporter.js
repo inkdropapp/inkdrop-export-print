@@ -10,42 +10,41 @@ module.exports = {
   print
 }
 
-async function exportAsPDFCommand(e) {
-  const { noteListBar, editingNote } = inkdrop.store.getState()
+async function exportAsPDFCommand(env, e) {
+  const { noteListBar, editingNote } = env.store.getState()
   const { actionTargetNoteIds } = noteListBar
   const noteIds = e.detail?.noteId ? [e.detail.noteId] : (actionTargetNoteIds.length > 0 ? actionTargetNoteIds : [editingNote?._id])
   if (noteIds && noteIds.length > 1) {
-    await exportMultipleNotesAsPDF(noteIds)
-    inkdrop.notifications.addInfo('Exporting notes completed', {
+    await exportMultipleNotesAsPDF(env, noteIds)
+    env.notifications.addInfo('Exporting notes completed', {
       detail: '',
       dismissable: true
     })
   } else if (noteIds.length === 1) {
     const note = await Note.loadWithId(noteIds[0])
-    exportAsPDF(note)
+    exportAsPDF(env, note)
   } else {
-    inkdrop.notifications.addError('No note opened', {
+    env.notifications.addError('No note opened', {
       detail: 'Please open a note to export as PDF',
       dismissable: true
     })
   }
 }
 
-async function printCommand() {
-  const { editingNote } = inkdrop.store.getState()
+async function printCommand(env) {
+  const { editingNote } = env.store.getState()
   if (editingNote) {
     await print(editingNote)
   } else {
-    inkdrop.notifications.addError('No note opened', {
+    env.notifications.addError('No note opened', {
       detail: 'Please open a note to export',
       dismissable: true
     })
   }
 }
 
-async function exportMultipleNotesAsPDF(noteIds) {
-  const { notes } = inkdrop.store.getState()
-  const { filePaths: res } = await inkdrop.dialog.showOpenDialog({
+async function exportMultipleNotesAsPDF(env, noteIds) {
+  const { filePaths: res } = await env.dialog.showOpenDialog({
     title: 'Select Destination Directory',
     properties: ['openDirectory']
   })
@@ -56,15 +55,15 @@ async function exportMultipleNotesAsPDF(noteIds) {
       const note = await Note.loadWithId(noteId)
       if (note) {
         const pathToSave = path.join(destDir, `${note.title}.pdf`)
-        await exportAsPDF(note, pathToSave)
+        await exportAsPDF(env, note, pathToSave)
       }
     }
   }
 }
 
-async function exportAsPDF(note, pathToSave) {
+async function exportAsPDF(env, note, pathToSave) {
   if (typeof pathToSave === 'undefined') {
-    const { filePath, canceled } = await inkdrop.dialog.showSaveDialog({
+    const { filePath, canceled } = await env.dialog.showSaveDialog({
       title: 'Save PDF file',
       defaultPath: `${note.title}.pdf`,
       filters: [
@@ -90,7 +89,7 @@ async function exportAsPDF(note, pathToSave) {
       const data = await webView.printToPDF(opts)
       fs.writeFileSync(pathToSave, data)
     } catch (e) {
-      inkdrop.notifications.addError('Failed to save PDF', {
+      env.notifications.addError('Failed to save PDF', {
         detail: e.stack,
         dismissable: true
       })
