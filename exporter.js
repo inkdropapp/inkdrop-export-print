@@ -1,5 +1,4 @@
 const path = require('path')
-const fs = require('fs')
 const { exportUtils } = require('inkdrop')
 const { Note } = require('inkdrop').models
 
@@ -79,28 +78,30 @@ async function exportAsPDF(env, note, pathToSave) {
   }
 
   if (typeof pathToSave === 'string' && pathToSave.length > 0) {
-    const webView = await exportUtils.createWebView(note)
-
     try {
-      const opts = {
+      await exportUtils.exportNoteAsPDF(note, pathToSave, {
         pageSize: 'A4',
         printBackground: true
-      }
-      const data = await webView.printToPDF(opts)
-      fs.writeFileSync(pathToSave, data)
+      })
     } catch (e) {
       env.notifications.addError('Failed to save PDF', {
         detail: e.stack,
         dismissable: true
       })
     }
-    exportUtils.removeWebView(webView, 1)
   }
 }
 
+const PRINT_CANCELED_REASON = 'Print job canceled'
+
 async function print(note) {
-  const webView = await exportUtils.createWebView(note)
-  // workaround to avoid crashing on Electron@7
-  await webView.executeJavaScript('window.print()')
-  exportUtils.removeWebView(webView, 1)
+  const { success, failureReason } = await exportUtils.printNote(note, {
+    printBackground: true
+  })
+  if (!success && failureReason !== PRINT_CANCELED_REASON) {
+    inkdrop.notifications.addError('Failed to print', {
+      detail: failureReason,
+      dismissable: true
+    })
+  }
 }
